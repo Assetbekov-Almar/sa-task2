@@ -1,0 +1,23 @@
+apiVersion: skaffold/v2beta13
+kind: Config
+metadata:
+  name: sa-task--main
+build:
+  artifacts:
+  - image: almar98/backend-image
+    context: todo-backend
+    docker:
+      dockerfile: Dockerfile
+  - image: almar98/frontened-image
+    context: todo-frontend
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - backend-deployment.yml
+    - backend-service.yml
+    - frontend-deployment.yml
+    - frontend-service.yml
+    - mongodb-pod.yml
+    - mongodb-service.yml
